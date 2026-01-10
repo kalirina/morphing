@@ -41,6 +41,9 @@ int main(int argc, char **argv) {
 	data.n = atoi(argv[3]);
 	data.img_depart = lire_fichier(data.name_1);
 	data.img_arrive = lire_fichier(data.name_2);
+	//triangulation
+	//graphics
+	afficher(&data);
 
 	return 0;
 }

@@ -29,5 +29,6 @@ typedef struct morph {
 void allouer_pixel(IMAGE *I);
 IMAGE lire_fichier(char *nom);
 void ecrire_fichier(IMAGE I, char *nom);
+void afficher(MORPH *data);
 
 #endif
