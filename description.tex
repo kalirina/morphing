@@ -26,34 +26,39 @@ une vidéo.
 
 \section{Fonction \texttt{main} et affichage}
 
-`main` prépare la structure `MORPH`, convertit/charge les images et
-appelle `afficher`. La fonction `afficher` ouvre la fenêtre (SDL),
+\texttt{main} prépare la structure MORPH, convertit/charge les images et
+appelle \texttt{afficher}. La fonction \texttt{afficher} ouvre la fenêtre (SDL),
 affiche les deux images et gère la boucle d'interaction où l'on clique
 gauche/droite pour créer des couples. Deux boutons existent :
-`Sauvegarder` (valide les couples) et `Quitter` (selon l'état de
-`saved` quitte immédiatement ou ferme l'interface puis lance la
+Sauvegarder (valide les couples) et Quitter (selon l'état de
+saved quitte immédiatement ou ferme l'interface puis lance la
 triangulation).
 
 \section{Triangulation}
 
-Le module construit d'abord la liste complète des points (4 coins +
-couples). Il calcule une triangulation pour la position médiane afin
-d'obtenir une connectivité stable, puis réutilise cette connectivité
-en interpolant les sommets pour chaque image via
-`create_interpolated_tri_from_fixed`. La triangulation est faite par
-insertion séquentielle des points (méthode simple mais efficace ici).
+Le module assemble d'abord les points (4 coins + couples) via
+			\texttt{build\_all\_points}. La triangulation est construite avec
+			\texttt{triangulate\_frame} qui appelle \texttt{triangulation\_from\_points}
+(insertion séquentielle, tests par aires signées). On peut choisir
+de trianguler chaque frame indépendamment (méthode robuste mais plus
+lente) ou bien de calculer une triangulation unique au frame médian
+et de réutiliser sa connectivité pour toutes les images en
+interpolant uniquement les positions des sommets via
+	\texttt{create\_interpolated\_tri\_from\_fixed} (approche plus rapide qui
+préserve la topologie entre frames).
 
 \section{Images intermédiaires}
 
-Pour chaque frame, `build_intermediate_image` parcourt tous les pixels,
-trouve le triangle contenant le pixel (coordonnées barycentriques),
-projette le point dans les images source/destination et mélange les
-couleurs (nearest-neighbor + interpolation linéaire selon `alpha`).
+Pour chaque frame, \texttt{build\_intermediate\_image} parcourt tous les
+pixels, trouve le triangle contenant le pixel (coordonnées
+barycentriques), projette le point dans les images source/destination
+et mélange les couleurs (nearest-neighbor + interpolation linéaire
+selon le paramètre d'interpolation). Cette fonction remplit la
+structure \texttt{IMAGE} et la retourne pour écriture.
 
 \section{Génération de la vidéo}
 
-Les images sont sauvegardées en PPM dans `images_transformed/` puis
-assemblées en MP4 par `ffmpeg` (une règle du Makefile). Le filtre
-`pad` assure des dimensions paires pour l'encodage.
+Les images sont sauvegardées en PPM dans \texttt{images\_transformed/}.
+Puis assemblées en MP4 par \texttt{ffmpeg} (règle dans le Makefile).
 
 \end{document}

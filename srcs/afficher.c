@@ -157,16 +157,14 @@ void afficher(MORPH *data) {
 		redraw_scene(data, pts_gauche, pts_droite, data->nb_s_couples, attendre_gauche, 0, 0);
 	}
 
-	/* After the selection loop: if the user saved, close the window then run triangulation
-	   (so the UI is closed while the potentially long triangulation runs). If not saved,
-	   we should have exited already when Quit was clicked. */
+	// Si sauvegardé, lancer la triangulation
 	if (saved) {
 		SDL_Quit();
 		triangulation(data, pts_droite, pts_gauche);
-		return; /* triangulation may call wait_escape or write files; return to end program */
+		return;
 	}
 
-	/* If we reach here without saved=true, just exit (safety). */
+	// Sinon, quitter
 	SDL_Quit();
 	return;
 }

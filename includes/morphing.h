@@ -8,6 +8,7 @@
 #include <string.h> // strlcat, strcpy
 #include <stdio.h> // printf
 #include <math.h> // round
+#include <limits.h>
 
 # define MAX_COUPLES 50
 

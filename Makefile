@@ -12,7 +12,8 @@ OBJS = $(SRCS:.c=.o)
 
 LATEXMK := $(shell command -v latexmk 2>/dev/null)
 DOC_BUILD := $(if $(LATEXMK),latexmk -pdf, pdflatex description.tex \&\& pdflatex description.tex)
-DOC_CLEAN := $(if $(LATEXMK),latexmk -C, rm -f description.pdf description.log description.aux description.fls description.fdb_latexmk description.out)
+DOC_CLEAN := $(if $(LATEXMK),latexmk -C, rm -f description.log description.aux description.fls description.fdb_latexmk description.out)
+DOC_FCLEAN := $(if $(LATEXMK),latexmk -C, rm -f description.pdf)
 
 all: $(NAME)
 
@@ -27,6 +28,9 @@ doc: description.tex
 
 doc_clean:
 	$(DOC_CLEAN)
+
+doc_fclean: doc_clean
+	$(DOC_FCLEAN)
 
 film:
 	ffmpeg -y -framerate 25 -i images_transformed/intermediate_%d.ppm -vf "pad=width=if(eq(mod(iw\,2)\,1)\,iw+1\,iw):height=if(eq(mod(ih\,2)\,1)\,ih+1\,ih)" -c:v libx264 -pix_fmt yuv420p morphing_output.mp4
