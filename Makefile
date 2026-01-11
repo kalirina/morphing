@@ -6,7 +6,8 @@ CFLAGS = -Wall -Wextra -Werror
 LDLIBS= `sdl2-config --libs` -lm -lSDL2_ttf
 LIBDIR= uvsqgraphics_2
 
-SRCS = main.c lire_ecrire.c uvsqgraphics_2/uvsqgraphics_2.c afficher.c
+SRCS = main.c lire_ecrire.c uvsqgraphics_2/uvsqgraphics_2.c afficher.c \
+		triangulation.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
