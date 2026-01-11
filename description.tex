@@ -1,0 +1,59 @@
+% description.tex
+% Project description / documentation (LaTeX)
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Use English as the document language to avoid missing babel language files on some systems.
+\usepackage[english]{babel}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+
+\title{Morphing — Description}
+\author{\texttt{Irina Kalinina NE:22504319}}
+\date{\today}
+
+\begin{document}
+\maketitle
+% Write your project description here.
+
+\section*{Résumé}
+
+Outil de morphing entre deux images : l'utilisateur sélectionne des
+couples de points correspondants, le programme triangule les positions
+interpolées et génère des images intermédiaires qui sont assemblées en
+une vidéo.
+
+\section{Fonction \texttt{main} et affichage}
+
+`main` prépare la structure `MORPH`, convertit/charge les images et
+appelle `afficher`. La fonction `afficher` ouvre la fenêtre (SDL),
+affiche les deux images et gère la boucle d'interaction où l'on clique
+gauche/droite pour créer des couples. Deux boutons existent :
+`Sauvegarder` (valide les couples) et `Quitter` (selon l'état de
+`saved` quitte immédiatement ou ferme l'interface puis lance la
+triangulation).
+
+\section{Triangulation}
+
+Le module construit d'abord la liste complète des points (4 coins +
+couples). Il calcule une triangulation pour la position médiane afin
+d'obtenir une connectivité stable, puis réutilise cette connectivité
+en interpolant les sommets pour chaque image via
+`create_interpolated_tri_from_fixed`. La triangulation est faite par
+insertion séquentielle des points (méthode simple mais efficace ici).
+
+\section{Images intermédiaires}
+
+Pour chaque frame, `build_intermediate_image` parcourt tous les pixels,
+trouve le triangle contenant le pixel (coordonnées barycentriques),
+projette le point dans les images source/destination et mélange les
+couleurs (nearest-neighbor + interpolation linéaire selon `alpha`).
+
+\section{Génération de la vidéo}
+
+Les images sont sauvegardées en PPM dans `images_transformed/` puis
+assemblées en MP4 par `ffmpeg` (une règle du Makefile). Le filtre
+`pad` assure des dimensions paires pour l'encodage.
+
+\end{document}

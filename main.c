@@ -42,6 +42,8 @@ int main(int argc, char **argv) {
 	MORPH data;
 	convert_to_ppm(&data ,argv[1], argv[2]);
 	data.n = atoi(argv[3]);
+	if (data.n <= 0)
+		return printf("Wrong number of intermediate images\n"), -1;
 	data.img_depart = lire_fichier(data.name_1);
 	data.img_arrive = lire_fichier(data.name_2);
 	afficher(&data);
