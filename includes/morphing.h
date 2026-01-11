@@ -1,8 +1,8 @@
 #ifndef MORPHING_H
 #define MORPHING_H
 
-#include "uvsqgraphics_2/uvsqgraphics_2.h"
-#include "uvsqgraphics_2/uvsqcouleur_2.h"
+#include "../uvsqgraphics_2/uvsqgraphics_2.h"
+#include "../uvsqgraphics_2/uvsqcouleur_2.h"
 #include <SDL2/SDL.h>
 #include <stdlib.h> // system
 #include <string.h> // strlcat, strcpy

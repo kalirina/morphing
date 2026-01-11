@@ -1,4 +1,4 @@
-#include "morphing.h"
+#include "../includes/morphing.h"
 
 // Échantillonnage nearest-neighbor dans une image aux coordonnées flottantes
 static COULEUR sample_image_nn(const IMAGE *img, float x, float y) {

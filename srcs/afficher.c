@@ -1,4 +1,4 @@
-#include "morphing.h"
+#include "../includes/morphing.h"
 
 // Une fonction qui affiche une image dans la fenêtre graphique
 void afficher_image(IMAGE I, int x0, int y0) {

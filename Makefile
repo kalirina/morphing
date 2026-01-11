@@ -6,8 +6,8 @@ CFLAGS = -Wall -Wextra -Werror
 LDLIBS= `sdl2-config --libs` -lm -lSDL2_ttf
 LIBDIR= uvsqgraphics_2
 
-SRCS = main.c lire_ecrire.c uvsqgraphics_2/uvsqgraphics_2.c afficher.c \
-		triangulation.c images.c
+SRCS = srcs/main.c srcs/lire_ecrire.c uvsqgraphics_2/uvsqgraphics_2.c srcs/afficher.c \
+		srcs/triangulation.c srcs/images.c
 OBJS = $(SRCS:.c=.o)
 
 LATEXMK := $(shell command -v latexmk 2>/dev/null)

@@ -1,4 +1,4 @@
-#include "morphing.h"
+#include "../includes/morphing.h"
 
 // Alloue la mémoire pour les pixels de l'image I
 void allouer_pixel(IMAGE *I) {

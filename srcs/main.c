@@ -1,4 +1,4 @@
-#include "morphing.h"
+#include "../includes/morphing.h"
 
 // Convertit les images d'entrée en PPM ASCII en utilisant ImageMagick
 void convert_to_ppm(MORPH *data, char *img_file_name_1, char *img_file_name_2) {

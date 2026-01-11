@@ -1,4 +1,4 @@
-#include "morphing.h"
+#include "../includes/morphing.h"
 
 // Copie un POINT en allouant de la mémoire sur le tas et renvoie le pointeur.
 static POINT *copy_point(POINT p) {
