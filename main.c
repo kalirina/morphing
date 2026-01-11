@@ -1,5 +1,6 @@
 #include "morphing.h"
 
+// Convertit les images d'entrée en PPM ASCII en utilisant ImageMagick
 void convert_to_ppm(MORPH *data, char *img_file_name_1, char *img_file_name_2) {
 	char cmd_1[1024];
 	char cmd_2[1024];
@@ -11,16 +12,18 @@ void convert_to_ppm(MORPH *data, char *img_file_name_1, char *img_file_name_2) {
 	char *dot_2 = strrchr(name_2, '.');
 	if (dot_1) *dot_1 = '\0';
 	if (dot_2) *dot_2 = '\0';
-	// int snprintf(char *str, size_t size, const char *format, ...);
-	// to write to the character string str
+	// Construire les commandes de conversion
 	int len_1 = snprintf(cmd_1, sizeof(cmd_1), "convert images/%s -compress none -define ppm:format=ascii images_transformed/%s.ppm", img_file_name_1, name_1);
 	int len_2 = snprintf(cmd_2, sizeof(cmd_2), "convert images/%s -compress none -define ppm:format=ascii images_transformed/%s.ppm", img_file_name_2, name_2);
 	if (len_1 < 0 || len_1 >= (int)sizeof(cmd_1) || len_2 < 0 || len_2 >= (int)sizeof(cmd_2)) {
 		fprintf(stderr, "Command too long\n");
 		exit(EXIT_FAILURE);
 	}
+	// Exécuter les commandes de conversion
 	system(cmd_1);
 	system(cmd_2);
+
+	// Stocker les chemins des fichiers PPM dans la structure MORPH
 	char path_1[1024];
 	char path_2[1024];
 	int l1 = snprintf(path_1, sizeof(path_1), "images_transformed/%s.ppm", name_1);
@@ -41,8 +44,6 @@ int main(int argc, char **argv) {
 	data.n = atoi(argv[3]);
 	data.img_depart = lire_fichier(data.name_1);
 	data.img_arrive = lire_fichier(data.name_2);
-	//triangulation
-	//graphics
 	afficher(&data);
 
 	return 0;

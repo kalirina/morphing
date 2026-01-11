@@ -7,6 +7,7 @@
 #include <stdlib.h> // system
 #include <string.h> // strlcat, strcpy
 #include <stdio.h> // printf
+#include <math.h> // round
 
 // Macros for RGB extraction
 #define R(coul) ((coul&0xff0000)>>16)
@@ -48,12 +49,7 @@ void allouer_pixel(IMAGE *I);
 IMAGE lire_fichier(char *nom);
 void ecrire_fichier(IMAGE I, char *nom);
 void afficher(MORPH *data);
-/* Triangulation APIs */
-TRI *triangulate_frames(MORPH *data, int nb_pts_select, COUPLE *dots);
-void free_TRI_array(TRI *arr, int frames);
-/* Triangulate a single frame (frame_index in [0..data->n-1]) */
 TRI triangulate_frame(MORPH *data, int frame_index, int nb_pts_select, COUPLE *dots);
-/* Free a single TRI produced by triangulation functions */
 void free_TRI(TRI *t);
 
 #endif
